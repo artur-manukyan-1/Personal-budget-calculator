@@ -1,0 +1,29 @@
+{
+	"User":{
+		"Expenses":{
+			"Electricity": 0 ,
+			"Water": 0 ,
+			"Gas": 0 ,
+			"Groceries": 0 ,
+			"Eating_out": 0 ,
+			"Transportation": {
+				"Taxi": 0 ,
+				"Bus": 0 ,
+				"Train": 0 
+			},
+			"Subscriptions": 0 ,
+			"Hygiene": 0 ,
+			"Self-care": 0 ,
+			"Clothing_and_accessories": 0 ,
+			"Education": 0 ,
+			"Medicine": 0 ,
+			"Not_for_yourself": 0 ,
+			"Other": 0
+		},   	
+		"Calendar": {
+			"Month": "",
+			"Income_date": 0 ,
+			"Payment_dates": 0 
+		}
+	}
+}
