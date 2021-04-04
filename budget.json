@@ -1,5 +1,13 @@
 {
 	"User":{
+		"Income":{
+			"Allowance": 0 ,
+			"Salary": 0 ,
+			"Bonus": 0 ,
+			"Other": 0 
+		}, 
+
+
 		"Expenses":{
 			"Electricity": 0 ,
 			"Water": 0 ,
@@ -12,6 +20,7 @@
 				"Train": 0 
 			},
 			"Subscriptions": 0 ,
+			"Phone, data, internet": 0,
 			"Hygiene": 0 ,
 			"Self-care": 0 ,
 			"Clothing_and_accessories": 0 ,
