@@ -8,60 +8,153 @@ def getNumericInput(displayString):
             user_data = int(user_data)
             return user_data
         else:
-            print("Please insert a NUMBER") 
+            print("Please insert a NUMBER ") 
 
 
 def userexpenses():
     expenses = {
-            "Electricity": 0 ,
-	    "Water": 0 ,
-	    "Gas": 0 ,
-	    "Groceries": 0 ,
-	    "Eating_out": 0 ,
+            "rent": 0 ,
+	    "carpayment": 0 ,
+	    "loan": 0 ,
+	    "electicity": 0 ,
+	    "gas": 0 ,
 	    "Transportation": {
-                "Taxi": 0 ,
-                "Bus": 0 ,
-                "Train": 0 
+                "taxi": 0 ,
+                "bus": 0 ,
+                "train": 0 
                 },
-            "Subscriptions": 0 ,
+            "water": 0 ,
             "Phone, data, internet": 0,
-            "Hygiene": 0 ,
-            "Self-care": 0 ,
-            "Clothing_and_accessories": 0 ,
-            "Education": 0 ,
-            "Medicine": 0 ,
-            "Not_for_yourself": 0 ,
-            "Other": 0
-            },
-    expenses["Electricity"] = int("Please insert the amount: ")
-    expenses["Water"] = int("Please insert the amount: ")
-    expenses["Gas"] = int("Please insert the amount: ")
-    expenses["Groceries"] = int("Please insert the amount: ")
-    expenses["eating_out"] = int("Please insert the amount: ")
-    expenses["Taxi"] = int("Please insert the amount: ")
-    expenses["Bus"] = int("Please insert the amount: ")
-    expenses["Train"] = int("Please insert the amount: ")
-    expenses["Subscriptions"] = int("Please insert the amount: ")
-    expenses["Phone, data, internet"] = int("Please insert the amount: ")      
-    expenses["Hygiene"] = int("Please insert the amount: ")
-    expenses["Self-care"] = int("Please insert the amount: ")
-    expenses["Clothing_and_accessories"] = int("Please insert the amount: ")
-    expenses["Education"] = int("Please insert the amount: ")
-    expenses["Medicine"] = int("Please insert the amount: ")
-    expenses["Not_for_yourself"] = int("Please insert the amount: ")
-    expenses["Other"] = int("Please insert the amount: ")      
-            
+            "groceris": 0 ,
+            "hygine": 0 ,
+            "medicine": 0 ,
+            "education": 0 ,
+            "eatingout": 0 ,
+            "subscription": 0 ,
+            "selfcare": 0 ,
+            "clothing": 0 ,
+            "other": 0 ,
+            "savings": 0 ,
+            }
+    expenses["rent"]= getNumericInput("Please enter the amount of your rent ")
+    expenses["carpayment"]= getNumericInput("Please enter the amount of your car payment ")
+    expenses["loan"]= getNumericInput("Please enter the amount of your loan payment ")
+    expenses["electicity"]= getNumericInput("Please enter the amount of your electicity expense ")
+    expenses["gas"]= getNumericInput("Please enter the amount of your gas expense ")
+    expenses["water"]= getNumericInput("Please enter the amount of your water expense ")
+    expenses["groceris"]= getNumericInput("Please enter the amount of your groceris expense ")
+    expenses["hygine"]= getNumericInput("Please enter the amount of your hygine expense ")
+    expenses["medicine"]= getNumericInput("Please enter the amount of your medicin expense ")
+    expenses["education"]= getNumericInput("Please enter the amount of your education expense ")
+    expenses["Phone, data, internet"]= getNumericInput("Please enter the amount of your internet expense ")
+    expenses["eatingout"]= getNumericInput("Please enter the amount of your eatingout expense ")
+    expenses["taxi"]= getNumericInput("Please enter the amount of your taxi expense ")
+    expenses["bus"]= getNumericInput("Please enter the amount of your bus expense ")
+    expenses["train"]= getNumericInput("Please enter the amount of your train expense ")
+    expenses["subscription"]= getNumericInput("Please enter the amount of your subscription expense ")
+    expenses["selfcare"]= getNumericInput("Please enter the amount of your selfcare  expense ")
+    expenses["clothing"]= getNumericInput("Please enter the amount of your clothing expense ")
+    expenses["other"]= getNumericInput("Please enter the amount of your other expense ")
+    expenses["savings"]= getNumericInput("Please enter the amount of your other expense ")
+    return expenses
+
 def userincome():
     income = {
             "Allowance": 0 ,
             "Salary": 0 ,
             "Bonus": 0 ,
             "Other": 0
-            },
-    income["Allowance"] = int("Please insert the amount: ")
-    income["Salary"] = int("Please insert the amount: ")
-    income["Bonus"] = int("Please insert the amount: ")
-    income["Other"] = int("Please insert the amount: ")
+            }
+    income["Allowance"] = getNumericInput("Please insert the amount:  ")
+    income["Salary"] = getNumericInput("Please insert the amount:  ")
+    income["Bonus"] = getNumericInput("Please insert the amount:  ")
+    income["Other"] = getNumericInput("Please insert the amount:  ")
+    return income
+
+def load_user(income, expenses):
+
+    user = {"username":"",
+            "income":{},
+            "expenses":{},
+            "age":0
+            }
+    user["income"] = income
+    user["expenses"] = expenses
+    user["username"]= input("Please enter your name:  ")
+    user["age"] = input("Please enter your age:  ")
+    return user
+
+def fixedexp():
+    rent = userexpenses["rent"]
+    carpayment = userexpenses["carpayment"]
+    loan = userexpenses["carpayment"]
+    f = rent+carpayment+loan
+    return f
+
+def variableEssential():
+    userexpenses()
+    electricity = userexpenses["electricity"]
+    gas = userexpenses["gas"]
+    water = userexpenses["water"] 
+    hygine = userexpenses["hygine"]
+    medicine = userexpenses["medicine"]
+    education = userexpenses["education"] 
+    internet = userexpenses["Phone, data, internet"]
+    u = electicity+gas+water+hygine+medicine+education+internet
+    return u
+
+def varilablesNonEss():
+    userexpenses()
+    eatingout = userexpenses["eatingout"]
+    taxi = userexpenses["taxi"]
+    bus = userexpenses["bus"] 
+    train = userexpenses["train"]
+    subscription = userexpenses["subscription"]
+    selfcare = userexpenses["selfcare"] 
+    clothing = userexpenses["clothing"]
+    other = userexpenses["other"]    
+    n = eatingout+taxi+bus+train+subscription+selfcare+clothing+other
+    return n
+
+def advised():
+   f = fixedexp()
+   u = variableEssential()
+   n = varilablesNonEss()
+   s = savings
+   e = f+u
+   sum = e+n+s
+   percente = e/s*100
+   percentu = n/s*100
+   percentn = s/s*100   
+   if(45< percente <55):
+       if(25< percentu < 35):
+           if(15< percentn <25):
+               print("Your expenses are balanced. 50-30-20 budget phylosophy suggest essential expenses, should represent half of your budget, wants should make up another 30%, and savings and debt repayment should make up the final 20% of your budget.")
+           else:
+               pass
+       else:
+           pass
+   else:
+       print("Please reconsider your expenses. 50-30-20 budget phylosophy suggest essential expenses, should represent half of your budget, wants should make up another 30%, and savings and debt repayment should make up the final 20% of your budget.")
+               
+
+
+def report():
+   userexpenses()
+   f = fixedexp()
+   u = variableEssential()
+   n = varilablesNonEss()
+   prgetNumericInput("Your fixed expenses are", f, ".")
+   prgetNumericInput("Your essential expenses for the last month were", u, ".")
+   prgetNumericInput("Your non-essential expenses for the last month were", n, ".")
+   advised()
+report()
+
+def main():
+    advised()
+    report()
 
 
 
+
+main()
