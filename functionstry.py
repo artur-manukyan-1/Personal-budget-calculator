@@ -84,42 +84,41 @@ def load_user(income, expenses):
     user["age"] = input("Please enter your age:  ")
     return user
 
-def fixedexp():
-    rent = userexpenses["rent"]
-    carpayment = userexpenses["carpayment"]
-    loan = userexpenses["carpayment"]
+def fixedexp(expenses):
+    rent = expenses["rent"]
+    carpayment = expenses["carpayment"]
+    loan = expenses["carpayment"]
     f = rent+carpayment+loan
     return f
 
-def variableEssential():
-    userexpenses()
-    electricity = userexpenses["electricity"]
-    gas = userexpenses["gas"]
-    water = userexpenses["water"] 
-    hygine = userexpenses["hygine"]
-    medicine = userexpenses["medicine"]
-    education = userexpenses["education"] 
-    internet = userexpenses["Phone, data, internet"]
+def variableEssential(expenses):
+    electricity = expenses["electricity"]
+    gas = expenses["gas"]
+    water = expenses["water"] 
+    hygine = expenses["hygine"]
+    medicine = expenses["medicine"]
+    education = expenses["education"] 
+    internet = expenses["Phone, data, internet"]
     u = electicity+gas+water+hygine+medicine+education+internet
     return u
 
-def varilablesNonEss():
-    userexpenses()
-    eatingout = userexpenses["eatingout"]
-    taxi = userexpenses["taxi"]
-    bus = userexpenses["bus"] 
-    train = userexpenses["train"]
-    subscription = userexpenses["subscription"]
-    selfcare = userexpenses["selfcare"] 
-    clothing = userexpenses["clothing"]
-    other = userexpenses["other"]    
+def varilablesNonEss(expenses):
+    expenses()
+    eatingout = expenses["eatingout"]
+    taxi = expenses["taxi"]
+    bus = expenses["bus"] 
+    train = expenses["train"]
+    subscription = expenses["subscription"]
+    selfcare = expenses["selfcare"] 
+    clothing = expenses["clothing"]
+    other = expenses["other"]    
     n = eatingout+taxi+bus+train+subscription+selfcare+clothing+other
     return n
 
-def advised():
-   f = fixedexp()
-   u = variableEssential()
-   n = varilablesNonEss()
+def advised(expenses):
+   f = fixedexp(expenses)
+   u= variableEssential(expenses)
+   n = varilablesNonEss(expenses)
    s = savings
    e = f+u
    sum = e+n+s
@@ -136,19 +135,17 @@ def advised():
            pass
    else:
        print("Please reconsider your expenses. 50-30-20 budget phylosophy suggest essential expenses, should represent half of your budget, wants should make up another 30%, and savings and debt repayment should make up the final 20% of your budget.")
-               
+   
 
 
-def report():
-   userexpenses()
-   f = fixedexp()
-   u = variableEssential()
-   n = varilablesNonEss()
+def report(expenses):
+   f = fixedexp(expenses)
+   u = variableEssential(expenses)
+   n = varilablesNonEss(expenses)
    prgetNumericInput("Your fixed expenses are", f, ".")
    prgetNumericInput("Your essential expenses for the last month were", u, ".")
    prgetNumericInput("Your non-essential expenses for the last month were", n, ".")
-   advised()
-report()
+  
 
 def main():
     advised()
