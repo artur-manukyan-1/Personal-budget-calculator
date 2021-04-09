@@ -55,7 +55,7 @@ def userexpenses():
     expenses["selfcare"]= getNumericInput("Please enter the amount of your selfcare  expense ")
     expenses["clothing"]= getNumericInput("Please enter the amount of your clothing expense ")
     expenses["other"]= getNumericInput("Please enter the amount of your other expense ")
-    expenses["savings"]= getNumericInput("Please enter the amount of your other expense ")
+    expenses["savings"]= getNumericInput("Please enter the amount you wish to save ")
     return expenses
 
 def userincome():
@@ -92,18 +92,17 @@ def fixedexp(expenses):
     return f
 
 def variableEssential(expenses):
-    electricity = expenses["electricity"]
-    gas = expenses["gas"]
-    water = expenses["water"] 
-    hygine = expenses["hygine"]
-    medicine = expenses["medicine"]
-    education = expenses["education"] 
-    internet = expenses["Phone, data, internet"]
-    u = electicity+gas+water+hygine+medicine+education+internet
+    electricity1 = expenses["electicity"]
+    gas1 = expenses["gas"]
+    water1 = expenses["water"] 
+    hygine1 = expenses["hygine"]
+    medicine1 = expenses["medicine"]
+    education1 = expenses["education"] 
+    internet1 = expenses["Phone, data, internet"]
+    u = electricity1 + gas1 + water1 + hygine1 + medicine1 + education1 + internet1
     return u
 
 def varilablesNonEss(expenses):
-    expenses()
     eatingout = expenses["eatingout"]
     taxi = expenses["taxi"]
     bus = expenses["bus"] 
@@ -119,7 +118,7 @@ def advised(expenses):
    f = fixedexp(expenses)
    u= variableEssential(expenses)
    n = varilablesNonEss(expenses)
-   s = savings
+   s = expenses["savings"]
    e = f+u
    sum = e+n+s
    percente = e/s*100
@@ -142,14 +141,15 @@ def report(expenses):
    f = fixedexp(expenses)
    u = variableEssential(expenses)
    n = varilablesNonEss(expenses)
-   prgetNumericInput("Your fixed expenses are", f, ".")
-   prgetNumericInput("Your essential expenses for the last month were", u, ".")
-   prgetNumericInput("Your non-essential expenses for the last month were", n, ".")
+   print("Your fixed expenses are", f, ".")
+   print("Your essential expenses for the last month were", u, ".")
+   print("Your non-essential expenses for the last month were", n, ".")
   
 
 def main():
-    advised()
-    report()
+    k = userexpenses()
+    advised(k)
+    report(k)
 
 
 
