@@ -1,6 +1,8 @@
 import json
 import os.path
 
+
+
 def getNumericInput(displayString):
     while(True):
         user_data = input(displayString)
@@ -11,7 +13,8 @@ def getNumericInput(displayString):
             print("Please insert a NUMBER ") 
 
 
-def userexpenses():
+
+def expense_data():
     expenses = {
             "rent": 0 ,
 	    "carpayment": 0 ,
@@ -58,84 +61,55 @@ def userexpenses():
     expenses["savings"]= getNumericInput("Please enter the amount you wish to save ")
     return expenses
 
-def userincome():
+
+def income_data():
     income = {
             "Allowance": 0 ,
             "Salary": 0 ,
             "Bonus": 0 ,
             "Other": 0
             }
-    income["Allowance"] = getNumericInput("Please insert the amount:  ")
-    income["Salary"] = getNumericInput("Please insert the amount:  ")
-    income["Bonus"] = getNumericInput("Please insert the amount:  ")
-    income["Other"] = getNumericInput("Please insert the amount:  ")
+    income["Allowance"] = getNumericInput("Please insert the amount of your allowance:  ")
+    income["Salary"] = getNumericInput("Please insert the amount of your salary:  ")
+    income["Bonus"] = getNumericInput("Please insert the amount of your bonuses:  ")
+    income["Other"] = getNumericInput("Please insert the amount of other incomes:  ")
     return income
 
-def load_user(income, expenses):
-
-    user = {"username":"",
-            "income":{},
-            "expenses":{},
-            "age":0
-            }
-    user["income"] = income
-    user["expenses"] = expenses
-    user["username"]= input("Please enter your name:  ")
-    user["age"] = input("Please enter your age:  ")
-    return user
 
 def fixedexp(expenses):
-    rent = expenses["rent"]
-    carpayment = expenses["carpayment"]
-    loan = expenses["carpayment"]
-    f = rent+carpayment+loan
+    f = expenses["rent"] + expenses["carpayment"] + expenses["loan"]
     return f
 
+
 def variableEssential(expenses):
-    electricity1 = expenses["electicity"]
-    gas1 = expenses["gas"]
-    water1 = expenses["water"] 
-    hygine1 = expenses["hygine"]
-    medicine1 = expenses["medicine"]
-    education1 = expenses["education"] 
-    internet1 = expenses["Phone, data, internet"]
-    u = electricity1 + gas1 + water1 + hygine1 + medicine1 + education1 + internet1
+    u = expenses["electicity"] + expenses["gas"] + expenses["water"] + expenses["hygine"]+ expenses["medicine"] + expenses["education"] + expenses["Phone, data, internet"] + expenses["groceris"]
     return u
 
+
 def varilablesNonEss(expenses):
-    eatingout = expenses["eatingout"]
-    taxi = expenses["taxi"]
-    bus = expenses["bus"] 
-    train = expenses["train"]
-    subscription = expenses["subscription"]
-    selfcare = expenses["selfcare"] 
-    clothing = expenses["clothing"]
-    other = expenses["other"]    
-    n = eatingout+taxi+bus+train+subscription+selfcare+clothing+other
+    n = expenses["eatingout"] + expenses["taxi"] + expenses["bus"] + expenses["train"] + expenses["subscription"] + expenses["selfcare"] + expenses["clothing"] + expenses["other"]    
     return n
 
+
 def advised(expenses):
-   f = fixedexp(expenses)
-   u= variableEssential(expenses)
+   e = fixedexp(expenses) + variableEssential(expenses)
    n = varilablesNonEss(expenses)
    s = expenses["savings"]
-   e = f+u
-   sum = e+n+s
-   percente = e/s*100
-   percentu = n/s*100
-   percentn = s/s*100   
-   if(45< percente <55):
-       if(25< percentu < 35):
-           if(15< percentn <25):
-               print("Your expenses are balanced. 50-30-20 budget phylosophy suggest essential expenses, should represent half of your budget, wants should make up another 30%, and savings and debt repayment should make up the final 20% of your budget.")
-           else:
-               pass
-       else:
-           pass
+   sums = e+n+s
+   percente = (e/sums)*100
+   percentu = (n/sums)*100
+   percentn = (s/sums)*100   
+   if(45 < percente < 55):
+      if(25 < percentu < 35):
+         if(15 < percentn < 25):
+             print("Your expenses are balanced. 50-30-20 budget phylosophy suggest essential expenses, should represent half of your budget, wants should make up another 30%, and savings and debt repayment should make up the final 20% of your budget.")
+         else:
+             pass
+      else:
+          pass
    else:
-       print("Please reconsider your expenses. 50-30-20 budget phylosophy suggest essential expenses, should represent half of your budget, wants should make up another 30%, and savings and debt repayment should make up the final 20% of your budget.")
-   
-
+        print("Please reconsider your expenses. 50-30-20 budget phylosophy suggest essential expenses, should represent half of your budget, wants should make up another 30%, and savings and debt repayment should make up the final 20% of your budget.")
+      
 
 def report(expenses):
    f = fixedexp(expenses)
@@ -146,8 +120,9 @@ def report(expenses):
    print("Your non-essential expenses for the last month were", n, ".")
   
 
+
 def main():
-    k = userexpenses()
+    k = expense_data()
     advised(k)
     report(k)
 
