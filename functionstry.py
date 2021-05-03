@@ -107,17 +107,18 @@ def planschange():
 def modification():
     k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
     y = "y"
+    f = expense_data()
     if(k == y):
         essential = modified["essentialpercent"]
         saving = modified["savingpercent"] 
-        advised(expense_data())
+        advised(f, planschange())
+        report(f)
     else:
-        essential = 50
-        saving = 20
-        advised(expense_data())
-        
+        advised(f, essential = 50, saving = 20)
+        report(f)
 
-def advised(expenses):
+
+def advised(expenses, essential, saving):
     e = fixedexp(expenses) + variableEssential(expenses)
     n = varilablesNonEss(expenses)
     s = expenses["savings"]
@@ -136,7 +137,8 @@ def advised(expenses):
             pass
     else:
         print("Please reconsider your expenses. 50-30-20 budget phylosophy suggest essential expenses, should represent half of your budget, wants should make up another 30%, and savings and debt repayment should make up the final 20% of your budget.")
-      
+       
+     
 
 def report(expenses):
    f = fixedexp(expenses)
@@ -150,8 +152,7 @@ def report(expenses):
 
 def main():
     modification() 
-    advised(expense_data())
-    report(expense_data())
+    
 
 
 
