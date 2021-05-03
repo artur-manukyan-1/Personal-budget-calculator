@@ -67,13 +67,16 @@ def income_data():
             "Allowance": 0 ,
             "Salary": 0 ,
             "Bonus": 0 ,
-            "Other": 0
+            "Other": 0 ,
+            "Saved": 0 , 
             }
     income["Allowance"] = getNumericInput("Please insert the amount of your allowance:  ")
     income["Salary"] = getNumericInput("Please insert the amount of your salary:  ")
     income["Bonus"] = getNumericInput("Please insert the amount of your bonuses:  ")
     income["Other"] = getNumericInput("Please insert the amount of other incomes:  ")
+    income["Saved"] = getNumericInput("Please insert the amount of you've saved:  ")
     return income
+
 
 
 def fixedexp(expenses):
@@ -91,23 +94,47 @@ def varilablesNonEss(expenses):
     return n
 
 
+
+def planschange():
+    modified = {
+        "essentialpercent": 0,
+        "savingpercent": 0,
+        }
+    modified["essentialpercent"] = getNumericInput("What percent of your expenses do you expect to spend of essentials? Insert only the number ")
+    modified["savingpercent"] = getNumericInput("What percent of your expenses do you expect to save? Insert only the number ")
+    return modified
+
+def modification():
+    k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
+    y = "y"
+    if(k == y):
+        essential = modified["essentialpercent"]
+        saving = modified["savingpercent"] 
+        advised(expense_data())
+    else:
+        essential = 50
+        saving = 20
+        advised(expense_data())
+        
+
 def advised(expenses):
-   e = fixedexp(expenses) + variableEssential(expenses)
-   n = varilablesNonEss(expenses)
-   s = expenses["savings"]
-   sums = e+n+s
-   percente = (e/sums)*100
-   percentu = (n/sums)*100
-   percentn = (s/sums)*100   
-   if(45 < percente < 55):
-      if(25 < percentu < 35):
-         if(15 < percentn < 25):
-             print("Your expenses are balanced. 50-30-20 budget phylosophy suggest essential expenses, should represent half of your budget, wants should make up another 30%, and savings and debt repayment should make up the final 20% of your budget.")
-         else:
-             pass
-      else:
-          pass
-   else:
+    e = fixedexp(expenses) + variableEssential(expenses)
+    n = varilablesNonEss(expenses)
+    s = expenses["savings"]
+    sums = e+n+s
+    percente = (e/sums)*100
+    percentu = (n/sums)*100
+    percentn = (s/sums)*100  
+    nonessential = 100 - essential - saving
+    if(essential - 3 < percente < essential + 3):
+        if(nonessential - 3 < percentu < nonessential + 3):
+            if(saving - 3 < percentn < saving + 3):
+                print("Your expenses are balanced. 50-30-20 budget phylosophy suggest essential expenses, should represent half of your budget, wants should make up another 30%, and savings and debt repayment should make up the final 20% of your budget.")
+            else:
+                pass
+        else:
+            pass
+    else:
         print("Please reconsider your expenses. 50-30-20 budget phylosophy suggest essential expenses, should represent half of your budget, wants should make up another 30%, and savings and debt repayment should make up the final 20% of your budget.")
       
 
@@ -122,9 +149,9 @@ def report(expenses):
 
 
 def main():
-    k = expense_data()
-    advised(k)
-    report(k)
+    modification() 
+    advised(expense_data())
+    report(expense_data())
 
 
 
