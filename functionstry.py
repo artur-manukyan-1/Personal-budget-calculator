@@ -75,7 +75,7 @@ def income_data():
     income["Salary"] = getNumericInput("Please insert the amount of your salary:  ")
     income["Bonus"] = getNumericInput("Please insert the amount of your bonuses:  ")
     income["Other"] = getNumericInput("Please insert the amount of other incomes:  ")
-    income["Saved"] = getNumericInput("Please insert the amount of you've saved:  ")
+    income["Saved"] = getNumericInput("Please insert the amount you've saved:  ")
     return income
 
 
@@ -109,24 +109,12 @@ def planschange():
 
 
 
-def modification(k):
-    if(k == "y"):
-        ifyes(planschange(), expense_data())
-    elif(k == "n"):
-        u = expense_data()
-        advised(u, essential = 50, saving = 20)
-        report(u)
-    else:
-        print("Invalid, input. Please type 'y' for yes, 'n' for no ")
-
-
-
-
-def ifyes(modified, expenses):
+def ifyes(modified, expenses, income):
     essential = modified["essentialpercent"] 
     savings = modified["savingpercent"]
     advised(expenses, essential, savings) 
     report(expenses)
+    in_exp(expenses, income)
 
 
 
@@ -139,38 +127,77 @@ def advised(expenses, essential, saving):
     percentu = (n/sums)*100
     percentn = (s/sums)*100  
     nonessential = 100 - essential - saving
-    if(essential - 3 < percente < essential + 3):
-        if(nonessential - 3 < percentu < nonessential + 3):
-            if(saving - 3 < percentn < saving + 3):
-                print("Your expenses are balanced.", essential,"-", nonessential,"-", saving," budget phylosophy suggest essential expenses, should represent ", essential,"%, 'wants' should make up another ", nonessential,"%, and savings and debt repayment should make up the final ", saving,"% of your budget.")
-            else:
-                if(saving < percentn):
-                    print("According to your last month's budget data, your saved ", (percentn - saving)*(s)/(saving)," more than planned. Good job!")
-                else:
-                    print("According to your last month's budget data, your saved ", (saving - percentn)*(s)/(saving)," less then planned.")
-
-        else:
-            if(nonessential < percentu):
-                print("In the last month on non-essentials you spent ", (percentu - nonessential)*(n)/(nonessential)," more than planned,please reconsider your expenses.")
-            else:
-                print("In the last month you spent ", (nonessential - percentu)*(n)/(nonessential)," less than planne, good job!")
     
+    if(essential - 3 < percente < essential + 3):
+        a = 1
     else:
         if(essential < percente):
-            print("On essentials you spent ", (percente - essential)*(e)/(essential)," more than planned. Please pay attention to this. ")
+            print("On essentials you spent ", (percente - essential)*(e)/(essential),"$ more than planned. Please pay attention to this. ")
         else:
-            print("On essentials you spent ", (essential - percente)*(e)/(essential)," less then planned. Please make sure all your basic needs are covered!")
-     
-     
+            print("On essentials you spent ", (essential - percente)*(e)/(essential),"$ less then planned. Please make sure all your basic needs are covered!")
+    
+    
+    if(nonessential - 3 < percentu < nonessential + 3):
+        b = 1
+    else:
+        if(nonessential < percentu):
+            print("In the last month on non-essentials you spent ", (percentu - nonessential)*(n)/(nonessential),"$ more than planned,please reconsider your expenses.")
+        else:
+            print("In the last month you spent ", (nonessential - percentu)*(n)/(nonessential),"$ less than planne, good job!")
+    
+    
+    if(saving - 3 < percentn < saving + 3):
+        c = 1
+    else:
+        if(saving < percentn):
+            print("According to your last month's budget data, your saved ", (percentn - saving)*(s)/(saving),"$ more than planned. Good job!")
+        else:
+            print("According to your last month's budget data, your saved ", (saving - percentn)*(s)/(saving),"$ less then planned.")
+
+    if(a + b + c == 3):
+        print("Your expenses are balanced.", essential,"-", nonessential,"-", saving," budget phylosophy suggest essential expenses, should represent ", essential,"%, 'wants' should make up another ", nonessential,"%, and savings and debt repayment should make up the final ", saving,"% of your budget.")
+    else: 
+        pass
+
+
+
+
 
 def report(expenses):
    f = fixedexp(expenses)
    u = variableEssential(expenses)
    n = varilablesNonEss(expenses)
-   print("Your fixed expenses are", f, ".")
+   print("Your fixed expenses are", f, "$.")
    print("Your essential expenses for the last month were", u, ".")
    print("Your non-essential expenses for the last month were", n, ".")
   
+
+
+def in_exp(expenses, income):
+    incomes = income["Allowance"] + income["Salary"] + income["Bonus"] + income["Other"] +  income["Saved"]
+    expense = fixedexp(expenses) + variableEssential(expenses) + varilablesNonEss(expenses) + expenses["savings"]
+    if(incomes > expense):
+        print("Your expenses are in a budget. You still have ", (incomes - expense),"$ left.")
+    elif(income == expense):
+        print("Your income and expenses are equal. Be careful to not go over a budget")
+    else:
+        print("Please review your expenses, your are over a budget with ", (expense - incomes),"$.")
+
+                
+                
+                
+def modification(k):
+    if(k == "y"):
+        ifyes(planschange(), expense_data(), income_data())
+    elif(k == "n"):
+        e = expense_data()
+        i = income_data()
+        advised(e, essential = 50, saving = 20)
+        report(e)
+        in_exp(e, i)
+    else:
+        print("Invalid, input. Please type 'y' for yes, 'n' for no ")
+
 
 
 def main():
