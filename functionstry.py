@@ -97,25 +97,22 @@ def varilablesNonEss(expenses):
 
 def planschange():
     modified = {
-        "essentialpercent": 0,
-        "savingpercent": 0,
-        }
+            "essentialpercent": 0,
+            "savingpercent": 0,
+            }
     modified["essentialpercent"] = getNumericInput("What percent of your expenses do you expect to spend of essentials? Insert only the number ")
     modified["savingpercent"] = getNumericInput("What percent of your expenses do you expect to save? Insert only the number ")
     return modified
 
-def modification():
-    k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
-    y = "y"
-    f = expense_data()
-    if(k == y):
-        essential = modified["essentialpercent"]
-        saving = modified["savingpercent"] 
-        advised(f, planschange())
-        report(f)
+def modification(k):
+    if(k == "y"):
+        planschange()
+        advised(expense_data(), modified["essentialpercent"], modified["savingpercent"]) 
+        report(expense_data())
     else:
-        advised(f, essential = 50, saving = 20)
-        report(f)
+        u = expense_data()
+        advised(u, essential = 50, saving = 20)
+        report(u)
 
 
 def advised(expenses, essential, saving):
@@ -151,7 +148,8 @@ def report(expenses):
 
 
 def main():
-    modification() 
+    k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
+    modification(k) 
     
 
 
