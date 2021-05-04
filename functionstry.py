@@ -62,6 +62,7 @@ def expense_data():
     return expenses
 
 
+
 def income_data():
     income = {
             "Allowance": 0 ,
@@ -84,9 +85,11 @@ def fixedexp(expenses):
     return f
 
 
+
 def variableEssential(expenses):
     u = expenses["electicity"] + expenses["gas"] + expenses["water"] + expenses["hygine"]+ expenses["medicine"] + expenses["education"] + expenses["Phone, data, internet"] + expenses["groceris"]
     return u
+
 
 
 def varilablesNonEss(expenses):
@@ -104,15 +107,27 @@ def planschange():
     modified["savingpercent"] = getNumericInput("What percent of your expenses do you expect to save? Insert only the number ")
     return modified
 
+
+
 def modification(k):
     if(k == "y"):
-        planschange()
-        advised(expense_data(), modified["essentialpercent"], modified["savingpercent"]) 
-        report(expense_data())
-    else:
+        ifyes(planschange(), expense_data())
+    elif(k == "n"):
         u = expense_data()
         advised(u, essential = 50, saving = 20)
         report(u)
+    else:
+        print("Invalid, input. Please type 'y' for yes, 'n' for no ")
+
+
+
+
+def ifyes(modified, expenses):
+    essential = modified["essentialpercent"] 
+    savings = modified["savingpercent"]
+    advised(expenses, essential, savings) 
+    report(expenses)
+
 
 
 def advised(expenses, essential, saving):
@@ -127,14 +142,25 @@ def advised(expenses, essential, saving):
     if(essential - 3 < percente < essential + 3):
         if(nonessential - 3 < percentu < nonessential + 3):
             if(saving - 3 < percentn < saving + 3):
-                print("Your expenses are balanced. 50-30-20 budget phylosophy suggest essential expenses, should represent half of your budget, wants should make up another 30%, and savings and debt repayment should make up the final 20% of your budget.")
+                print("Your expenses are balanced.", essential,"-", nonessential,"-", saving," budget phylosophy suggest essential expenses, should represent ", essential,"%, 'wants' should make up another ", nonessential,"%, and savings and debt repayment should make up the final ", saving,"% of your budget.")
             else:
-                pass
+                if(saving < percentn):
+                    print("According to your last month's budget data, your saved ", (percentn - saving)*(s)/(saving)," more than planned. Good job!")
+                else:
+                    print("According to your last month's budget data, your saved ", (saving - percentn)*(s)/(saving)," less then planned.")
+
         else:
-            pass
+            if(nonessential < percentu):
+                print("In the last month on non-essentials you spent ", (percentu - nonessential)*(n)/(nonessential)," more than planned,please reconsider your expenses.")
+            else:
+                print("In the last month you spent ", (nonessential - percentu)*(n)/(nonessential)," less than planne, good job!")
+    
     else:
-        print("Please reconsider your expenses. 50-30-20 budget phylosophy suggest essential expenses, should represent half of your budget, wants should make up another 30%, and savings and debt repayment should make up the final 20% of your budget.")
-       
+        if(essential < percente):
+            print("On essentials you spent ", (percente - essential)*(e)/(essential)," more than planned. Please pay attention to this. ")
+        else:
+            print("On essentials you spent ", (essential - percente)*(e)/(essential)," less then planned. Please make sure all your basic needs are covered!")
+     
      
 
 def report(expenses):
