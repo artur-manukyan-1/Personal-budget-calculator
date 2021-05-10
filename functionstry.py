@@ -132,27 +132,34 @@ def advised(expenses, essential, saving):
         a = 1
     else:
         if(essential < percente):
-            print("On essentials you spent ", (percente - essential)*(e)/(essential),"$ more than planned. Please pay attention to this. ")
+            print("On essentials you spent ", (percente - essential)*(e)//(essential),"$ more than planned. Please pay attention to this. ")
         else:
-            print("On essentials you spent ", (essential - percente)*(e)/(essential),"$ less then planned. Please make sure all your basic needs are covered!")
+            a = 0
+            print("On essentials you spent ", (essential - percente)*(e)//(essential),"$ less then planned. Please make sure all your basic needs are covered!")
+            return a
     
     
     if(nonessential - 3 < percentu < nonessential + 3):
         b = 1
     else:
+        b = 0
         if(nonessential < percentu):
-            print("In the last month on non-essentials you spent ", (percentu - nonessential)*(n)/(nonessential),"$ more than planned,please reconsider your expenses.")
+            print("In the last month on non-essentials you spent ", (percentu - nonessential)*(n)//(nonessential),"$ more than planned,please reconsider your expenses.")
         else:
-            print("In the last month you spent ", (nonessential - percentu)*(n)/(nonessential),"$ less than planne, good job!")
+            print("In the last month you spent ", (nonessential - percentu)*(n)//(nonessential),"$ less than planned, good job!")
+            return b
     
     
     if(saving - 3 < percentn < saving + 3):
         c = 1
     else:
+        c = 0
         if(saving < percentn):
             print("According to your last month's budget data, your saved ", (percentn - saving)*(s)/(saving),"$ more than planned. Good job!")
         else:
             print("According to your last month's budget data, your saved ", (saving - percentn)*(s)/(saving),"$ less then planned.")
+            return c
+
 
     if(a + b + c == 3):
         print("Your expenses are balanced.", essential,"-", nonessential,"-", saving," budget phylosophy suggest essential expenses, should represent ", essential,"%, 'wants' should make up another ", nonessential,"%, and savings and debt repayment should make up the final ", saving,"% of your budget.")
