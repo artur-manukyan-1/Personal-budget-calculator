@@ -195,23 +195,25 @@ def in_exp(expenses, income):
                 
                 
                 
-def modification(k):
-    if(k == "y"):
-        ifyes(planschange(), expense_data(), income_data())
-    elif(k == "n"):
-        e = expense_data()
-        i = income_data()
-        advised(e, essential = 50, saving = 20)
-        report(e)
-        in_exp(e, i)
-    else:
-        print("Invalid, input. Please type 'y' for yes, 'n' for no ")
-
-
+def modification():
+    k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
+    while(True):
+        if(k == "y"):
+            ifyes(planschange(), expense_data(), income_data())
+        elif(k == "n"):
+            e = expense_data()
+            i = income_data()
+            advised(e, essential = 50, saving = 20)
+            report(e)
+            in_exp(e, i)
+            break
+        else:
+            print("Invalid, input.")
+            k = input("Please type 'y' for yes or 'n' for no ")
+    
 
 def main():
-    k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
-    modification(k) 
+    modification() 
     
 
 
