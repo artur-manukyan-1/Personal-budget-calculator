@@ -131,6 +131,7 @@ def advised(expenses, essential, saving):
     if(essential - 3 < percente < essential + 3):
         a = 1
     else:
+        print("You planned to spent", essential,"% of your total expenses on fixed and essential spendings, ", nonessential,"% on non-essentials and ", saving,"% save for future. Follow the plan to be in control of your spendings.")
         if(essential < percente):
             print("On essentials and fixed expenses you spent ", (e - ((essential*sums)//100)),"$ more than planned. Please pay attention to this. ")
         else:
@@ -154,7 +155,6 @@ def advised(expenses, essential, saving):
         c = 1
         print("Last month you saved", s,"$ as planned.")
     else:
-        print("working")
         if(saving < percentn):
             print("According to your last month's budget data, your saved ", (s - ((saving*sums)//100)),"$ more than planned. Good job!")
         else:
@@ -167,7 +167,6 @@ def advised(expenses, essential, saving):
         print("Your expenses are balanced.", essential,"-", nonessential,"-", saving," budget phylosophy suggest essential expenses, should represent ", essential,"%, 'wants' should make up another ", nonessential,"%, and savings and debt repayment should make up the final ", saving,"% of your budget.")
     else: 
         pass
-
 
 
 
@@ -197,19 +196,17 @@ def in_exp(expenses, income):
                 
 def modification():
     k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
-    while(True):
-        if(k == "y"):
+    if(k == "y"):
             ifyes(planschange(), expense_data(), income_data())
-        elif(k == "n"):
-            e = expense_data()
-            i = income_data()
-            advised(e, essential = 50, saving = 20)
-            report(e)
-            in_exp(e, i)
-            break
-        else:
-            print("Invalid, input.")
-            k = input("Please type 'y' for yes or 'n' for no ")
+    elif(k == "n"):
+        e = expense_data()
+        i = income_data()
+        advised(e, essential = 50, saving = 20)
+        report(e)
+        in_exp(e, i)
+    else:
+        print("Invalid, input.")
+        k = input("Please type 'y' for yes or 'n' for no ")
     
 
 def main():
