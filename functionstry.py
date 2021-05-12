@@ -12,13 +12,14 @@ def getNumericInput(displayString):
         else:
             print("Please insert a NUMBER ") 
 
+filename = "user_data.json"
 
 
 
-
-def expense_data():
+def user_data():
 
     data = {
+            "username" : "",
             "rent": 0 ,
 	    "carpayment": 0 ,
 	    "loan": 0 ,
@@ -47,6 +48,11 @@ def expense_data():
             "Other": 0 ,
             "Saved": 0 , 
             }
+    while True:
+        new_name = data["username"] = str(input("Please create a username"))
+        if not(accheck(new_name, accs)):
+            break
+        print ("That username is taken. Try to be more creative.")
     data["rent"]= getNumericInput("Please enter the amount of your rent ")
     data["carpayment"]= getNumericInput("Please enter the amount of your car payment ")
     data["loan"]= getNumericInput("Please enter the amount of your loan payment ")
@@ -188,24 +194,62 @@ def in_exp(data):
     else:
         print("Please review your expenses, your are over a budget with ", (expense - incomes),"$.")
     print("\n")
-                
-                
+
+
+
+def eaccs():
+    with open (filename) as exacs:
+        accs = json.load(exacs)
+    return accs
+
+def accheck(username, accs):
+    for user in accs:
+        m = acc["username"]
+        if (m == username):
+            return acc
+
+
+
+def saveinfo():
+    save = open(filename, mode = 'w')
+    save.write(json.dump(accs))
+    save.close
+                    
                 
 def modification():
-    while(True):
-        k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
-        if(k == "y"):
-            ifyes(planschange(), expense_data())
-            return False
-        elif(k == "n"):
-            e = expense_data()
-            advised(e, essential = 50, saving = 20)
-            report(e)
-            in_exp(e)
-            return False
-        else:
-            print("Invalid, input.")
-            k = input("Please type 'y' for yes or 'n' for no ")
+    
+    
+    accs = []
+    accs = eaccs()
+
+    d = input("Do you have an existing account? type 'y' for yes, 'n' for no ")
+    if (d == 'y'):
+
+        username = str(input("Please enter your username"))
+        c = accheck(username, users)
+        if (c):
+            while(True):
+                k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
+                if(k == "y"):
+                    ifyes(planschange(), user_data())
+                    return False
+                elif(k == "n"):
+                    e = user_data()
+                    advised(e, essential = 50, saving = 20)
+                    report(e)
+                    in_exp(e)
+                    return False
+                else:
+                    print("Invalid, input.")
+                    k = input("Please type 'y' for yes or 'n' for no ")
+
+    elif (d == 'n'):
+        newacc = user_data(accs)
+        accs.append(newacc)
+        accs = eaccs()
+        saveinfo(accs)
+        
+       
 
 
 
