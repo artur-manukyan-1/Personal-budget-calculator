@@ -14,6 +14,26 @@ def getNumericInput(displayString):
 
 filename = "user_data.json"
 
+def load_data():
+    with open('data.json') as exacs:
+        accs = json.load(exacs)
+        return accs
+
+
+
+def user_check(username, accs):
+    for user in accs:
+        u = data["username"]
+        if (username == u):
+            return acc
+
+
+
+def saveinfo():
+    save = open("data.json", "w")
+    save.write(json.dump(accs, indent = 2))
+    save.close
+                    
 
 
 def user_data():
@@ -48,9 +68,9 @@ def user_data():
             "Other": 0 ,
             "Saved": 0 , 
             }
-    while True:
+    while(True):
         new_name = data["username"] = str(input("Please create a username"))
-        if not(accheck(new_name, accs)):
+        if not(user_check(new_name, accs)):
             break
         print ("That username is taken. Try to be more creative.")
     data["rent"]= getNumericInput("Please enter the amount of your rent ")
@@ -197,48 +217,44 @@ def in_exp(data):
 
 
 
-def eaccs():
-    with open (filename) as exacs:
-        accs = json.load(exacs)
-    return accs
-
-def accheck(username, accs):
-    for user in accs:
-        m = acc["username"]
-        if (m == username):
-            return acc
-
-
-
-def saveinfo():
-    save = open(filename, mode = 'w')
-    save.write(json.dump(accs))
-    save.close
-                    
                 
 def modification():
     
-    
     accs = []
-    accs = eaccs()
+    accs = load_data()
 
     d = input("Do you have an existing account? type 'y' for yes, 'n' for no ")
     if (d == 'y'):
 
         username = str(input("Please enter your username"))
-        c = accheck(username, users)
+        c = user_check(username, accs)
+        
         if (c):
             while(True):
                 k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
                 if(k == "y"):
                     ifyes(planschange(), user_data())
-                    return False
+                    break
                 elif(k == "n"):
                     e = user_data()
                     advised(e, essential = 50, saving = 20)
                     report(e)
                     in_exp(e)
-                    return False
+                    break
+                else:
+                    print("Invalid, input.")
+                    k = input("Please type 'y' for yes or 'n' for no ")
+        
+        else:
+            print("The username is invalid, or doesn't exist")
+            while(True):
+                create = input("Do you want to create an account? Enter y for yes, and n for no. ")
+                if(k == "y"):
+                    d = "y"
+                    break
+                elif(k == "n"):
+                    print("Sorry to see you leave, bye! :( ")
+                    break
                 else:
                     print("Invalid, input.")
                     k = input("Please type 'y' for yes or 'n' for no ")
@@ -246,7 +262,7 @@ def modification():
     elif (d == 'n'):
         newacc = user_data(accs)
         accs.append(newacc)
-        accs = eaccs()
+        accs = load_data()
         saveinfo(accs)
         
        
