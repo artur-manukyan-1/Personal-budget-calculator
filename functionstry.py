@@ -14,7 +14,12 @@ def getNumericInput(displayString):
 
 
 
+filename = "user_data.json"
+
+
+
 def expense_data():
+
     expenses = {
             "rent": 0 ,
 	    "carpayment": 0 ,
@@ -59,6 +64,10 @@ def expense_data():
     expenses["clothing"]= getNumericInput("Please enter the amount of your clothing expense ")
     expenses["other"]= getNumericInput("Please enter the amount of your other expense ")
     expenses["savings"]= getNumericInput("Please enter the amount you wish to save ")
+
+
+   
+
     return expenses
 
 
@@ -195,18 +204,54 @@ def in_exp(expenses, income):
                 
                 
 def modification():
-    k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
-    if(k == "y"):
-            ifyes(planschange(), expense_data(), income_data())
-    elif(k == "n"):
-        e = expense_data()
-        i = income_data()
-        advised(e, essential = 50, saving = 20)
-        report(e)
-        in_exp(e, i)
-    else:
-        print("Invalid, input.")
-        k = input("Please type 'y' for yes or 'n' for no ")
+    a = input("Do you have an existing account? type 'y' for yes, 'n' for no ")
+    if (a == "y"):
+
+
+        myfile = open(filename, mode = 'r')
+        username = str(input("Please input your username"))
+
+        z = {json.load(myfile)}
+        print (z)
+        k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
+        if(k == "y"):
+                ifyes(planschange(), expense_data(), income_data())
+        elif(k == "n"):
+
+ #           i = (z[username]["user_income"])
+            e = expense_data()
+
+            advised(e, essential = 50, saving = 20)
+            report(e)
+            in_exp(e, i)
+        else:
+            print("Invalid, input.")
+            k = input("Please type 'y' for yes or 'n' for no ")
+
+    elif (a == "n"):
+
+        username = str(input("Please create a username"))
+        myfile = open(filename, mode = 'a')
+
+        k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
+        if(k == "y"):
+                ifyes(planschange(), expense_data(), income_data())
+        elif(k == "n"):
+            e = expense_data()
+            i = income_data()
+
+
+            userinf = {username: {"user_income" : i}}
+            json.dump([userinf], myfile)
+            myfile.close()
+
+            advised(e, essential = 50, saving = 20)
+            report(e)
+            in_exp(e, i)
+        else:
+            print("Invalid, input.")
+            k = input("Please type 'y' for yes or 'n' for no ")
+
     
 
 def main():
@@ -217,3 +262,7 @@ def main():
 
 
 main()
+
+
+
+
