@@ -12,14 +12,15 @@ def getNumericInput(displayString):
         else:
             print("Please insert a NUMBER ") 
 
+
+
 filename = "user_data.json"
 
 
 
-def user_data():
+def expense_data():
 
-    data = {
-            "username" : "",
+    expenses = {
             "rent": 0 ,
 	    "carpayment": 0 ,
 	    "loan": 0 ,
@@ -42,61 +43,66 @@ def user_data():
             "clothing": 0 ,
             "other": 0 ,
             "savings": 0 ,
+            }
+    expenses["rent"]= getNumericInput("Please enter the amount of your rent ")
+    expenses["carpayment"]= getNumericInput("Please enter the amount of your car payment ")
+    expenses["loan"]= getNumericInput("Please enter the amount of your loan payment ")
+    expenses["electicity"]= getNumericInput("Please enter the amount of your electicity expense ")
+    expenses["gas"]= getNumericInput("Please enter the amount of your gas expense ")
+    expenses["water"]= getNumericInput("Please enter the amount of your water expense ")
+    expenses["groceris"]= getNumericInput("Please enter the amount of your groceris expense ")
+    expenses["hygine"]= getNumericInput("Please enter the amount of your hygine expense ")
+    expenses["medicine"]= getNumericInput("Please enter the amount of your medicin expense ")
+    expenses["education"]= getNumericInput("Please enter the amount of your education expense ")
+    expenses["Phone, data, internet"]= getNumericInput("Please enter the amount of your internet expense ")
+    expenses["eatingout"]= getNumericInput("Please enter the amount of your eatingout expense ")
+    expenses["taxi"]= getNumericInput("Please enter the amount of your taxi expense ")
+    expenses["bus"]= getNumericInput("Please enter the amount of your bus expense ")
+    expenses["train"]= getNumericInput("Please enter the amount of your train expense ")
+    expenses["subscription"]= getNumericInput("Please enter the amount of your subscription expense ")
+    expenses["selfcare"]= getNumericInput("Please enter the amount of your selfcare  expense ")
+    expenses["clothing"]= getNumericInput("Please enter the amount of your clothing expense ")
+    expenses["other"]= getNumericInput("Please enter the amount of your other expense ")
+    expenses["savings"]= getNumericInput("Please enter the amount you wish to save ")
+
+
+   
+
+    return expenses
+
+
+
+def income_data():
+    income = {
             "Allowance": 0 ,
             "Salary": 0 ,
             "Bonus": 0 ,
             "Other": 0 ,
             "Saved": 0 , 
             }
-    while True:
-        new_name = data["username"] = str(input("Please create a username"))
-        if not(accheck(new_name, accs)):
-            break
-        print ("That username is taken. Try to be more creative.")
-    data["rent"]= getNumericInput("Please enter the amount of your rent ")
-    data["carpayment"]= getNumericInput("Please enter the amount of your car payment ")
-    data["loan"]= getNumericInput("Please enter the amount of your loan payment ")
-    data["electicity"]= getNumericInput("Please enter the amount of your electicity expense ")
-    data["gas"]= getNumericInput("Please enter the amount of your gas expense ")
-    data["water"]= getNumericInput("Please enter the amount of your water expense ")
-    data["groceris"]= getNumericInput("Please enter the amount of your groceris expense ")
-    data["hygine"]= getNumericInput("Please enter the amount of your hygine expense ")
-    data["medicine"]= getNumericInput("Please enter the amount of your medicin expense ")
-    data["education"]= getNumericInput("Please enter the amount of your education expense ")
-    data["Phone, data, internet"]= getNumericInput("Please enter the amount of your internet expense ")
-    data["eatingout"]= getNumericInput("Please enter the amount of your eatingout expense ")
-    data["taxi"]= getNumericInput("Please enter the amount of your taxi expense ")
-    data["bus"]= getNumericInput("Please enter the amount of your bus expense ")
-    data["train"]= getNumericInput("Please enter the amount of your train expense ")
-    data["subscription"]= getNumericInput("Please enter the amount of your subscription expense ")
-    data["selfcare"]= getNumericInput("Please enter the amount of your selfcare  expense ")
-    data["clothing"]= getNumericInput("Please enter the amount of your clothing expense ")
-    data["other"]= getNumericInput("Please enter the amount of your other expense ")
-    data["savings"]= getNumericInput("Please enter the amount you wish to save ")
-    data["Allowance"] = getNumericInput("Please insert the amount of your allowance:  ")
-    data["Salary"] = getNumericInput("Please insert the amount of your salary:  ")
-    data["Bonus"] = getNumericInput("Please insert the amount of your bonuses:  ")
-    data["Other"] = getNumericInput("Please insert the amount of other incomes:  ")
-    data["Saved"] = getNumericInput("Please insert the amount you've saved:  ")
-    return data
+    income["Allowance"] = getNumericInput("Please insert the amount of your allowance:  ")
+    income["Salary"] = getNumericInput("Please insert the amount of your salary:  ")
+    income["Bonus"] = getNumericInput("Please insert the amount of your bonuses:  ")
+    income["Other"] = getNumericInput("Please insert the amount of other incomes:  ")
+    income["Saved"] = getNumericInput("Please insert the amount you've saved:  ")
+    return income
 
 
 
-
-def fixedexp(data):
-    f = data["rent"] + data["carpayment"] + data["loan"]
+def fixedexp(expenses):
+    f = expenses["rent"] + expenses["carpayment"] + expenses["loan"]
     return f
 
 
 
-def variableEssential(data):
-    u = data["electicity"] + data["gas"] + data["water"] + data["hygine"]+ data["medicine"] + data["education"] + data["Phone, data, internet"] + data["groceris"]
+def variableEssential(expenses):
+    u = expenses["electicity"] + expenses["gas"] + expenses["water"] + expenses["hygine"]+ expenses["medicine"] + expenses["education"] + expenses["Phone, data, internet"] + expenses["groceris"]
     return u
 
 
 
-def varilablesNonEss(data):
-    n = data["eatingout"] + data["taxi"] + data["bus"] + data["train"] + data["subscription"] + data["selfcare"] + data["clothing"] + data["other"]    
+def varilablesNonEss(expenses):
+    n = expenses["eatingout"] + expenses["taxi"] + expenses["bus"] + expenses["train"] + expenses["subscription"] + expenses["selfcare"] + expenses["clothing"] + expenses["other"]    
     return n
 
 
@@ -111,19 +117,19 @@ def planschange():
     return modified
 
 
-def ifyes(modified, data):
+def ifyes(modified, expenses, income):
     essential = modified["essentialpercent"] 
     savings = modified["savingpercent"]
-    advised(data, essential, savings) 
-    report(data)
-    in_exp(data)
+    advised(expenses, essential, savings) 
+    report(expenses)
+    in_exp(expenses, income)
 
 
 
-def advised(data, essential, saving):
-    e = fixedexp(data) + variableEssential(data)
-    n = varilablesNonEss(data)
-    s = data["savings"]
+def advised(expenses, essential, saving):
+    e = fixedexp(expenses) + variableEssential(expenses)
+    n = varilablesNonEss(expenses)
+    s = expenses["savings"]
     sums = e+n+s
     percente = (e/sums)*100
     percentu = (n/sums)*100
@@ -174,85 +180,79 @@ def advised(data, essential, saving):
 
 
 
-def report(data):
-   f = fixedexp(data)
-   u = variableEssential(data)
-   n = varilablesNonEss(data)
+def report(expenses):
+   f = fixedexp(expenses)
+   u = variableEssential(expenses)
+   n = varilablesNonEss(expenses)
    print("Your fixed expenses are", f, "$.")
    print("Your essential expenses for the last month were", u, "$.")
    print("Your non-essential expenses for the last month were", n, "$.")
   
 
 
-def in_exp(data):
-    incomes = data["Allowance"] + data["Salary"] + data["Bonus"] + data["Other"] +  data["Saved"]
-    expense = fixedexp(data) + variableEssential(data) + varilablesNonEss(data) + data["savings"]
+def in_exp(expenses, income):
+    incomes = income["Allowance"] + income["Salary"] + income["Bonus"] + income["Other"] +  income["Saved"]
+    expense = fixedexp(expenses) + variableEssential(expenses) + varilablesNonEss(expenses) + expenses["savings"]
     if(incomes > expense):
         print("Your expenses are in a budget. You still have ", (incomes - expense),"$ left.")
-    elif(incomes == expense):
+    elif(income == expense):
         print("Your income and expenses are equal. Be careful to not go over a budget")
     else:
         print("Please review your expenses, your are over a budget with ", (expense - incomes),"$.")
     print("\n")
-
-
-
-def eaccs():
-    with open (filename) as exacs:
-        accs = json.load(exacs)
-    return accs
-
-def accheck(username, accs):
-    for user in accs:
-        m = acc["username"]
-        if (m == username):
-            return acc
-
-
-
-def saveinfo():
-    save = open(filename, mode = 'w')
-    save.write(json.dump(accs))
-    save.close
-                    
+                
+                
                 
 def modification():
+    a = input("Do you have an existing account? type 'y' for yes, 'n' for no ")
+    if (a == "y"):
+
+
+        myfile = open(filename, mode = 'r')
+        username = str(input("Please input your username"))
+
+        z = {json.load(myfile)}
+        print (z)
+        k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
+        if(k == "y"):
+                ifyes(planschange(), expense_data(), income_data())
+        elif(k == "n"):
+
+ #           i = (z[username]["user_income"])
+            e = expense_data()
+
+            advised(e, essential = 50, saving = 20)
+            report(e)
+            in_exp(e, i)
+        else:
+            print("Invalid, input.")
+            k = input("Please type 'y' for yes or 'n' for no ")
+
+    elif (a == "n"):
+
+        username = str(input("Please create a username"))
+        myfile = open(filename, mode = 'a')
+
+        k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
+        if(k == "y"):
+                ifyes(planschange(), expense_data(), income_data())
+        elif(k == "n"):
+            e = expense_data()
+            i = income_data()
+
+
+            userinf = {username: {"user_income" : i}}
+            json.dump([userinf], myfile)
+            myfile.close()
+
+            advised(e, essential = 50, saving = 20)
+            report(e)
+            in_exp(e, i)
+        else:
+            print("Invalid, input.")
+            k = input("Please type 'y' for yes or 'n' for no ")
+
     
-    
-    accs = []
-    accs = eaccs()
-
-    d = input("Do you have an existing account? type 'y' for yes, 'n' for no ")
-    if (d == 'y'):
-
-        username = str(input("Please enter your username"))
-        c = accheck(username, users)
-        if (c):
-            while(True):
-                k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
-                if(k == "y"):
-                    ifyes(planschange(), user_data())
-                    return False
-                elif(k == "n"):
-                    e = user_data()
-                    advised(e, essential = 50, saving = 20)
-                    report(e)
-                    in_exp(e)
-                    return False
-                else:
-                    print("Invalid, input.")
-                    k = input("Please type 'y' for yes or 'n' for no ")
-
-    elif (d == 'n'):
-        newacc = user_data(accs)
-        accs.append(newacc)
-        accs = eaccs()
-        saveinfo(accs)
-        
-       
-
-
-
 
 def main():
     modification() 
