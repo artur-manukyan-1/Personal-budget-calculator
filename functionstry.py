@@ -193,7 +193,7 @@ def in_exp(data):
                 
 def modification():
     while(True):
-        k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
+        k = input("The default plan suggest 50-30-20 spendings, which means 50% of your spendings are fixed and essential expenses, 30% are for non-essential spendings, and 20% should be saved. If you prefer you can modify the plan according to you needs. Do you want to modify the plan? type 'y' for yes, 'n' for no ")
         if(k == "y"):
             ifyes(planschange(), expense_data())
             return False
