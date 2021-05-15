@@ -192,20 +192,68 @@ def in_exp(data):
                 
                 
 def modification():
-    while(True):
-        k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
-        if(k == "y"):
-            ifyes(planschange(), expense_data())
-            return False
-        elif(k == "n"):
-            e = expense_data()
-            advised(e, essential = 50, saving = 20)
-            report(e)
-            in_exp(e)
-            return False
-        else:
-            print("Invalid, input.")
-            k = input("Please type 'y' for yes or 'n' for no ")
+
+     check = str(input("Do you have an existing account? type 'y' for yes, 'n' for no "))
+     while(1==1):
+         if (check =='n'):
+
+             username = str(input("please create a username "))          
+             try:         
+                 with open("users_data.json", 'rb') as exert_data:
+                     existing = json.load(exert_data)
+                 while(1 == 1):
+                     if username in existing:
+                         username = str(input("That username is already taken. Please try to be more creative "))
+                     else:                     
+                         e = expense_data()
+                         with open("users_data.json", 'w') as add_user:
+                             new = {username : e}
+                             existing_updated = {**existing, **new}
+                             json.dump(existing_updated, add_user, indent = 4, separators = (',',':'), sort_keys = True)
+
+             except json.decoder.JSONDecodeError:
+                 with open("users_data.json", 'w') as add_user:
+                     e = expense_data()
+                     new = {username : e}
+                     json.dump(new, add_user, indent = 4, separators = (',',':'), sort_keys = True)
+             break
+
+         elif(check == 'y'):
+             try:
+                 username = str(input("Please insert your username "))
+                 while(1 == 1):                
+                     with open("users_data.json", 'rb') as exert_data:
+                         existing = json.load(exert_data)
+                         if username in existing:
+                             e = (existing.get(username))
+                            
+                         else:
+                             print ("Invalid username")
+                             username = str(input("Please input valid username "))
+                 break
+
+             except json.decoder.JSONDecodeError:
+                 print ("There are no existing users registered yet. Please create a new account\n")
+                 check = ('n')
+         else:
+            check = input("please input 'y' or 'n'")     
+
+     k = input("Do you want to modify the plan? type 'y' for yes, 'n' for no ")
+     while(1 == 1):
+         if(k == "y"):
+             ifyes(planschange(), e)
+             break
+         elif(k == "n"):
+             advised(e, essential = 50, saving = 20)
+             report(e)
+             in_exp(e)
+             break
+         else:
+             print("Invalid, input.")
+             k = input("Please type 'y' for yes or 'n' for no ")
+
+
+
 
 
 
